@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <style>
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  font-size: 22px;
+  color: black;
+}
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" th:href="@{/ui/personList}">Person Management System</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/ui/showingUpcomingBirthdays}">Upcoming Birthdays</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<h2 style="text-align:center">Person Profile</h2>
+
+<table class = "table table-striped table-bordered">
+  <thead class = "table-dark">
+<!--  <tr>-->
+    <th> Person Name</th>
+    <th> Person Date Of Birth </th>
+    <th> Actions </th>
+<!--  </tr>-->
+  </thead>
+
+  <tbody>
+<!--  <tr th:each = "person: ${people}">-->
+    <td th:text = "${person.givenName}  + ' ' +  ${person.familyName}"></td>
+    <td th:text = "${#temporals.format(person.dateOfBirth, 'dd-MM-yyyy')}"></td>
+    <td>
+      <a th:href = "@{/ui/editPerson/{id}(id=${person.id})}"
+         class = "btn btn-primary">Edit</a>
+
+      <a th:href = "@{/ui/personList/{id}(id=${person.id})}"
+         class = "btn btn-danger">Delete</a>
+
+    </td>
+<!--  </tr>-->
+  </tbody>
+
+</table>
+
+
+</body>
+</html>
