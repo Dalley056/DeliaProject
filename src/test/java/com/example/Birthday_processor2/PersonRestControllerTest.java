@@ -40,9 +40,9 @@ class PersonRestControllerTest {
                 .thenReturn(List.of(new Person(1L,"Delia", "Neagu", LocalDate.of(2001, 12, 04))));
         ResultActions resultActions = this.mvc
                 .perform(MockMvcRequestBuilders
-                        .get("/employees"))
+                        .get("/api/people"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].employeeId", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].givenName").value("Delia"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].familyName").value("Neagu"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].dateOfBirth").value("2001-12-04"));
@@ -54,7 +54,7 @@ class PersonRestControllerTest {
     void shouldCreateEmployee() throws Exception {
         this.mvc
                 .perform(MockMvcRequestBuilders
-                        .post("/employees")
+                        .post("/api/people")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"employeeId\": \"1\", \"givenName\": \"Delia\", \"familyName\": \"Neagu\", \"dateOFBirth\": \"2001-12-04\"}")
                 ).andExpect(MockMvcResultMatchers.status().isOk());
@@ -72,9 +72,9 @@ class PersonRestControllerTest {
                 .thenReturn(List.of(new Person(1L,"Delia", "Neagu", LocalDate.of(2001, 12, 04))));
         ResultActions resultActions = this.mvc
                 .perform(MockMvcRequestBuilders
-                        .get("/employees"))
+                        .get("/api/people"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].employeeId", Matchers.is(1)));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Matchers.is(1)));
     }
 
 
