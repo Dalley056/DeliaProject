@@ -113,8 +113,6 @@ public class ViewPersonController {
 
     }
 
-    // things after ? are called Query string parameter
-    // http://localhost:8080/ui/showingUpcomingBirthdays?daysFromNow=10
     @GetMapping("/showingUpcomingBirthdays")
     public String getUpcomingBirthdays(Model model, @RequestParam(value="daysFromNow", required = false) Integer daysFromNow){
         // Call service with number of days from http call or none
