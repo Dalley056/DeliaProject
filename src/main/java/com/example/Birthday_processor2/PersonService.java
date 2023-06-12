@@ -18,5 +18,7 @@ public interface PersonService {
 
     void deletePersonById(Long id);
 
-   void updatePerson(Person existingPerson);
+    void updatePerson(Person existingPerson);
+
+    int getNumberOfDaysUntilEmployeeBirthday(Person person);
 }

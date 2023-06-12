@@ -14,7 +14,6 @@ import java.util.Optional;
 import static java.time.temporal.ChronoField.DAY_OF_MONTH;
 import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
 
-//import static sun.awt.image.MultiResolutionCachedImage.map;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -28,8 +27,8 @@ public class PersonServiceImpl implements PersonService {
         this.clock = clock;
     }
 
-    public Person convertEmployeeEntityintoEmployee(EmployeeEntity entity){
-            return new Person(entity.getEmployeeId(), entity.getFirstName(), entity.getLastName(), entity.getDateOfBirth());
+    public Person convertEmployeeEntityintoEmployee(EmployeeEntity entity) {
+        return new Person(entity.getEmployeeId(), entity.getFirstName(), entity.getLastName(), entity.getDateOfBirth());
     }
 
     @Override
@@ -38,29 +37,24 @@ public class PersonServiceImpl implements PersonService {
 
         return employeeEntities.stream().map(this::convertEmployeeEntityintoEmployee).toList();
     }
-    //java map with method refrences
+
 
     @Override
     public Person savePerson(Person person) {
-        EmployeeEntity entity= new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth());
+        EmployeeEntity entity = new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth());
         employeeRepo.save(entity);
         return convertEmployeeEntityintoEmployee(entity);
     }
 
 
-
     @Override
-    public Optional<Person> getSinglePerson(Long id){
+    public Optional<Person> getSinglePerson(Long id) {
 
         return employeeRepo.findById(id).map(this::convertEmployeeEntityintoEmployee);
     }
 
     @Override
     public List<Person> findWithUpcomingBirthday(int includeDaysFromNow) {
-
-        // Create LocalDate for now
-        // Create LocalDate days from now
-
         LocalDate now = LocalDate.now(this.clock);
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendValue(MONTH_OF_YEAR, 2)
@@ -72,22 +66,31 @@ public class PersonServiceImpl implements PersonService {
         return employeeRepo.findAllByMonthDayRange(dateMonthDay, dateMonthDay30).stream()
                 .map(this::convertEmployeeEntityintoEmployee)
                 .toList();
-
     }
 
     @Override
     public void updatePerson(Person person) {
-//        EmployeeEntity entity= new EmployeeEntity(person.getId(), person.getGivenName(), person.getGivenName(), person.getDateOfBirth());
-//        employeeRepo.save(entity);
-//        convertEmployeeEntityintoEmployee(entity);
-//        return employeeRepo.save(person);
-
-        EmployeeEntity entity= new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth());
+        EmployeeEntity entity = new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth());
         employeeRepo.save(entity);
 
     }
+
     @Override
     public void deletePersonById(Long id) {
         employeeRepo.deleteById(id);
+    }
+
+    @Override
+    public int getNumberOfDaysUntilEmployeeBirthday(Person person){
+        String dateOfBirth= String.valueOf(person.getDateOfBirth());
+        Long dateOfBirth2= Long.valueOf(dateOfBirth); //covert to long
+        LocalDate now = LocalDate.now(this.clock);
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendValue(MONTH_OF_YEAR, 2)
+                .appendValue(DAY_OF_MONTH, 2)
+                .toFormatter();
+        int totalNumberOfDays = Integer.parseInt(String.valueOf(now.minusDays(dateOfBirth2).format(formatter)));
+
+        return totalNumberOfDays;
     }
 }

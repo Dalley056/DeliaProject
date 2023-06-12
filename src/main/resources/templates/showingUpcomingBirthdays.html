@@ -9,6 +9,12 @@
           crossorigin="anonymous">
 
     <style>
+  input{
+  width: 8%;
+  padding:1px 3px;
+  margin: 1px 0;
+  box-sizing: border-box;
+}
  .button {
   border: none;
   padding: 5px 15px;
@@ -26,7 +32,7 @@
   background-color: blue;
   position: absolute;
   top: 102px;
-  left: 480px;
+  left: 360px;
 
 }
  </style>
@@ -59,9 +65,7 @@
 
     <form method="get"  onsubmit="handleSubmit()">
         <label for="daysFromNow"> Choose the range of days:</label>
-        <input  th:value="${daysFromNow}" width="20%" type="int" id="daysFromNow"  name="daysFromNow"><br><br>
-
-<!--        <input type="submit" value="Go" />-->
+        <input  th:value="${daysFromNow}" type="number" id="daysFromNow"  name="daysFromNow" min="1" max="365" value="1"><br><br>
         <button class="button button3">Go</button>
     </form>
 
@@ -71,7 +75,7 @@
         <tr>
             <th> Person Name</th>
             <th> Person Date Of Birth </th>
-            <th> Actions </th>
+            <th> Number Of days until birthday </th>
         </tr>
         </thead>
 
@@ -79,14 +83,7 @@
         <tr th:each = "person: ${people}">
             <td th:text = "${person.givenName}  + ' ' +  ${person.familyName}"></td>
             <td th:text = "${#temporals.format(person.dateOfBirth, 'dd-MM-yyyy')}"></td>
-            <td>
-                <a th:href = "@{/ui/editPerson/{id}(id=${person.id})}"
-                   class = "btn btn-primary">Edit</a>
-
-                <a th:href = "@{/ui/personList/{id}(id=${person.id})}"
-                   class = "btn btn-danger">Delete</a>
-
-            </td>
+            <td th:text= "${person.getDaysTillBirthday()}"></td>
         </tr>
         </tbody>
 
