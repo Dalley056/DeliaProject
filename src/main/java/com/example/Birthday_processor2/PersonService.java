@@ -21,4 +21,5 @@ public interface PersonService {
     void updatePerson(Person existingPerson);
 
     int getNumberOfDaysUntilEmployeeBirthday(Person person);
+
 }

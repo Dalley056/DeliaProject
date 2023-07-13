@@ -36,6 +36,13 @@
 
 }
  </style>
+
+    <script>
+             if (${person.generation=="Generation Z"})
+                        {<a href="https://www.amazon.co.uk/s?k=gifts+for+zoomers&crid=37BXGJJDARN5&sprefix=gifts+for+zoomers%2Caps%2C250&ref=nb_sb_noss">}
+             else if (${person.generation=="Millenials"})
+             {<a href="https://www.amazon.co.uk/s?k=gifts+for+Millenials&crid=2TO6SBLLIPWDQ&sprefix=gifts+for+millenials%2Caps%2C255&ref=nb_sb_noss_2"}
+</script>
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -76,6 +83,7 @@
             <th> Person Name</th>
             <th> Person Date Of Birth </th>
             <th> Number Of days until birthday </th>
+            <th> Generation </th>
         </tr>
         </thead>
 
@@ -84,6 +92,7 @@
             <td th:text = "${person.givenName}  + ' ' +  ${person.familyName}"></td>
             <td th:text = "${#temporals.format(person.dateOfBirth, 'dd-MM-yyyy')}"></td>
             <td th:text= "${person.getDaysTillBirthday()}"></td>
+            <td><a th:href="'https://www.amazon.co.uk/s?k=Birthdays+presents+for+a+' + ${person.age} + '+year+old'" target="_blank" rel="noopener noreferrer" th:text="${person.generation}"></a></td>
         </tr>
         </tbody>
 

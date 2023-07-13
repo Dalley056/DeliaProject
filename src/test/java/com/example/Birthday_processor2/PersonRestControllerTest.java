@@ -58,10 +58,6 @@ class PersonRestControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"employeeId\": \"1\", \"givenName\": \"Delia\", \"familyName\": \"Neagu\", \"dateOFBirth\": \"2001-12-04\"}")
                 ).andExpect(MockMvcResultMatchers.status().isOk());
-                //.andExpect(MockMvcResultMatchers.status().isCreated())
-               /// .andExpect(MockMvcResultMatchers.header().exists("Location"))
-                //.andExpect(MockMvcResultMatchers.header().string("Location", Matchers.containsString("1")));
-
         verify(employeeSer).savePerson(any(Person.class));
 
     }

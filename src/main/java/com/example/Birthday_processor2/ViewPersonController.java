@@ -111,7 +111,5 @@ public class ViewPersonController {
         return "/showingUpcomingBirthdays";
     }
 
-
-
 }
 
