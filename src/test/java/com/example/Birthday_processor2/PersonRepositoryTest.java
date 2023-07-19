@@ -47,8 +47,6 @@ class PersonRepositoryTest {
         assertThat(employeeEntities).isNotEmpty();
     }
 
-    //one before the time window, one for today, one in the range(15), on the end of the range, one after, one after 2 days;
-    //employee entity,persist each, call repository method, check it brings back the correct ones.
 
     @Test
     public void getTheUpcomingBirthdays() {
@@ -64,7 +62,7 @@ class PersonRepositoryTest {
             testEntityManager.persist(employee);
         }
 
-        List<EmployeeEntity> employeesInRange = employeeRepository.findAllByMonthDayRange("0505", "0603");
+        List<EmployeeEntity> employeesInRange = employeeRepository.findAllByMonthDayRange("0505", "0603"); //0603
         assertThat(employeesInRange).containsExactlyInAnyOrder(joe, jenna, julie, mark);
 
 }}

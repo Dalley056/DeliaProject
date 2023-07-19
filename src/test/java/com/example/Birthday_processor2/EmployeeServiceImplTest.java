@@ -131,5 +131,16 @@ class PersonServiceImplTest5 {
 
     }
 
+    @Test
+    void getNumberOfDaysForNextYearCaseTest(){
+        EmployeeEntity employee = new EmployeeEntity(1L, "Martin", "Smith", LocalDate.of(1975, 12, 14));
+        LocalDate fromDate = LocalDate.of(2023, 12, 1);
+        int fromDay = fromDate.getDayOfYear();
+        int toDay = fromDate.plusDays(60).getDayOfYear();
+        if(employee.getDateOfBirth().getMonthValue()>fromDate.getMonthValue()){
+            assertThat (employee.getDateOfBirth().getDayOfYear()).isBetween(fromDay,toDay); //between 350 and 350+60
+        }
+        else
+            assertThat(employee.getDateOfBirth().isAfter(LocalDate.now())&&employee.getDateOfBirth().isBefore(LocalDate.of(2023,12,31)));
 
-}
+    }}

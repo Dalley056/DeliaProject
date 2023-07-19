@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
 import java.util.Optional;
 
+import static java.time.Month.DECEMBER;
+import static java.time.Month.JANUARY;
 import static java.time.temporal.ChronoField.DAY_OF_MONTH;
 import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
 
@@ -55,18 +57,34 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public List<Person> findWithUpcomingBirthday(int includeDaysFromNow) {
-        LocalDate now = LocalDate.now(this.clock);
-        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-                .appendValue(MONTH_OF_YEAR, 2)
-                .appendValue(DAY_OF_MONTH, 2)
-                .toFormatter();
-        String dateMonthDay = now.format(formatter);
-        String dateMonthDay30 = String.valueOf(now.plusDays(includeDaysFromNow).format(formatter));
 
-        return employeeRepo.findAllByMonthDayRange(dateMonthDay, dateMonthDay30).stream()
-                .map(this::convertEmployeeEntityintoEmployee)
-                .toList();
+        LocalDate from = LocalDate.now(this.clock);
+        LocalDate to = from.plusDays(includeDaysFromNow);
+
+        int fromDayOfYear = from.getDayOfYear();
+        int toDayOfYear = to.getDayOfYear();
+
+        if  (rangeSpansTwoYears(fromDayOfYear, toDayOfYear, to)) {
+            int fromYearLastDay = LocalDate.of(from.getYear(), DECEMBER, 31).getDayOfYear();
+            int toYearFirstDay = LocalDate.of(to.getYear(), JANUARY, 1).getDayOfYear();
+            return employeeRepo.findWithDayOfYearAcrossTwoYears(fromDayOfYear, fromYearLastDay, toYearFirstDay, toDayOfYear)
+                    .stream()
+                    .map(this::convertEmployeeEntityintoEmployee)
+                    .toList();
+        } else {
+            return employeeRepo.findWithDayOfYear(fromDayOfYear, toDayOfYear)
+                    .stream()
+                    .map(this::convertEmployeeEntityintoEmployee)
+                    .toList();
+        }
+
     }
+
+    private static boolean rangeSpansTwoYears(int fromDayOfYear, int toDayOfYear, LocalDate toDate) {
+        return (toDayOfYear < fromDayOfYear) || (toDayOfYear == fromDayOfYear && toDate.isLeapYear());
+    }
+
+    //
 
     @Override
     public void updatePerson(Person person) {
@@ -81,9 +99,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public int getNumberOfDaysUntilEmployeeBirthday(Person person){
-        String dateOfBirth= String.valueOf(person.getDateOfBirth());
-        Long dateOfBirth2= Long.valueOf(dateOfBirth); //covert to long
+    public int getNumberOfDaysUntilEmployeeBirthday(Person person) {
+        String dateOfBirth = String.valueOf(person.getDateOfBirth());
+        Long dateOfBirth2 = Long.valueOf(dateOfBirth); //covert to long
         LocalDate now = LocalDate.now(this.clock);
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendValue(MONTH_OF_YEAR, 2)
@@ -94,4 +112,16 @@ public class PersonServiceImpl implements PersonService {
         return totalNumberOfDays;
     }
 
+//    public List<Person> findByDayOfYearRange(Person person, int includeDaysFromNow){
+//        LocalDate fromDate = LocalDate.now(this.clock);
+//        int fromDay = fromDate.getDayOfYear();
+//        int toDay = fromDate.plusDays(includeDaysFromNow).getDayOfYear();
+//        if(person.getDateOfBirth().getMonthValue()>fromDate.getMonthValue()){
+//            if((person.getDateOfBirth().getDayOfYear()<=toDay && person.getDateOfBirth().getDayOfYear()>=fromDay)) //between 350 and 350+60
+//            { return employeeRepo.findByDayOfYearRange(fromDay,toDay);}
+//        }
+////        else
+////            employeeRepo.findAllByMonthDayRange()
+//    }
 }
+
