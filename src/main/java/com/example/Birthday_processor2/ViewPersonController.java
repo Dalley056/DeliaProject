@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -109,6 +110,13 @@ public class ViewPersonController {
         model.addAttribute("people", personList);
         model.addAttribute("daysFromNow", daysFromNow);
         return "/showingUpcomingBirthdays";
+    }
+
+    @GetMapping("/registration")
+    public String showRegistrationForm(WebRequest request, Model model) {
+        UserDto userDto = new UserDto();
+        model.addAttribute("user", userDto);
+        return "registration";
     }
 
 }

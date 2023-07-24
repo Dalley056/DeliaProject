@@ -4,12 +4,8 @@ package com.example.Birthday_processor2;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-@PasswordMatches
-public class UserDto {
 
-        @ValidEmail
-        @NotNull
-        @NotEmpty
+public class UserDto {
 
 
         @NotNull
@@ -29,9 +25,6 @@ public class UserDto {
         private String password;
         private String matchingPassword;
 
-        @NotNull
-        @NotEmpty
-        private String email;
 
         // standard getters and setters
     }
