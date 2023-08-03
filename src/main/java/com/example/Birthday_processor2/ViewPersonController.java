@@ -1,8 +1,10 @@
 package com.example.Birthday_processor2;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
@@ -104,7 +106,7 @@ public class ViewPersonController {
     }
 
     @GetMapping("/showingUpcomingBirthdays")
-    public String getUpcomingBirthdays(Person person,Model model, @RequestParam(value = "daysFromNow", required = false) Integer daysFromNow) {
+    public String getUpcomingBirthdays(Person person, Model model, @RequestParam(value = "daysFromNow", required = false) Integer daysFromNow) {
         List<Person> personList = personService.findWithUpcomingBirthday(
                 Optional.ofNullable(daysFromNow).orElse(30));
         model.addAttribute("people", personList);
@@ -115,9 +117,48 @@ public class ViewPersonController {
     @GetMapping("/registration")
     public String showRegistrationForm(WebRequest request, Model model) {
         UserDto userDto = new UserDto();
-        model.addAttribute("user", userDto);
+        model.addAttribute("person", userDto);
         return "registration";
     }
 
+    @PostMapping("/registration")
+    public String userRegistration(final @Valid UserDto userDto, final BindingResult bindingResult, final Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("registration", userDto);
+            return "registration";
+        }
+        try {
+            personService.register(userDto);
+        } catch (UserAlreadyExistException e) {
+            bindingResult.rejectValue("email", "userDto.email", "An account already exists for this email.");
+            model.addAttribute("registration", userDto);
+            return "registration";
+        }
+        return "redirect:/ui/personList";
+    }
+
+    //     @GetMapping("/login")
+//     public String login(@AuthenticationPrincipal UserDetails userDetails){
+//        if(userDetails==null){
+//            return "login";
+//        }
+//        else{
+//            return "redirect:/";
+//        }
+//     }
+//    @Controller
+//    class LoginController {
+//        @RequestMapping("/login")
+//        String login() {
+//            return "login";
+//        }
+//
+//        @RequestMapping("/logout")
+//        String logout() {
+//            return "logout";
+//        }
+//    }
+
 }
+
 

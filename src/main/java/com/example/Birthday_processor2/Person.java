@@ -17,6 +17,10 @@ public class Person {
     private String familyName;
     private LocalDate dateOfBirth;
 
+    private String email;
+    private String password;
+    private String userName;
+
     @Setter(AccessLevel.PROTECTED)
     @Getter(AccessLevel.NONE)
     private Clock clock = Clock.systemUTC();

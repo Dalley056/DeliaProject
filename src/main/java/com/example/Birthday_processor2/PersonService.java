@@ -22,4 +22,7 @@ public interface PersonService {
 
     int getNumberOfDaysUntilEmployeeBirthday(Person person);
 
+    void register(final UserDto user) throws UserAlreadyExistException;
+
+    boolean checkIfUserExist(String email);
 }
