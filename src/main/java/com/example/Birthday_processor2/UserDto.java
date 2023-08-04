@@ -3,7 +3,9 @@ package com.example.Birthday_processor2;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -20,7 +22,8 @@ public class UserDto {
         @NotBlank(message = "Please enter your username")
         private String username;
 
-        @NotBlank(message = "Please enter your date of birth")
+        @NotNull(message = "Please enter your date of birth")
+        @DateTimeFormat
         private LocalDate dateOfBirth;
 
 //        @ValidEmail

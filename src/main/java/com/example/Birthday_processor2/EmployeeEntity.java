@@ -2,6 +2,7 @@ package com.example.Birthday_processor2;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -30,7 +31,7 @@ public class EmployeeEntity {
     @Column (name= "last_name")
     private String lastName;
 
-    @NotBlank(message = "Date Of Birth is mandatory")
+    @NotNull(message = "Date Of Birth is mandatory")
     @Column (name= "date_of_birth")
     private LocalDate dateOfBirth;
 
@@ -41,6 +42,6 @@ public class EmployeeEntity {
     private String password;
 
     @NotBlank(message = "Username is mandatory")
-    private String userName;
+    private String username;
 
 }

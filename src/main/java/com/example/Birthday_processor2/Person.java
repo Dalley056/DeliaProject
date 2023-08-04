@@ -19,7 +19,7 @@ public class Person {
 
     private String email;
     private String password;
-    private String userName;
+    private String username;
 
     @Setter(AccessLevel.PROTECTED)
     @Getter(AccessLevel.NONE)

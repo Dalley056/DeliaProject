@@ -122,7 +122,7 @@ public class ViewPersonController {
     }
 
     @PostMapping("/registration")
-    public String userRegistration(final @Valid UserDto userDto, final BindingResult bindingResult, final Model model) {
+    public String userRegistration(final @Valid UserDto userDto, final BindingResult bindingResult, final Model model) throws UserAlreadyExistException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("registration", userDto);
             return "registration";
@@ -134,30 +134,13 @@ public class ViewPersonController {
             model.addAttribute("registration", userDto);
             return "registration";
         }
+        personService.register(userDto);
         return "redirect:/ui/personList";
     }
 
-    //     @GetMapping("/login")
-//     public String login(@AuthenticationPrincipal UserDetails userDetails){
-//        if(userDetails==null){
-//            return "login";
-//        }
-//        else{
-//            return "redirect:/";
-//        }
-//     }
-//    @Controller
-//    class LoginController {
-//        @RequestMapping("/login")
-//        String login() {
-//            return "login";
-//        }
-//
-//        @RequestMapping("/logout")
-//        String logout() {
-//            return "logout";
-//        }
-//    }
+
+
+
 
 }
 
