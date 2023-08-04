@@ -32,17 +32,8 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> 
             """,
             nativeQuery= true)
     List<EmployeeEntity> findWithDayOfYear(int fromDayOfYear, int toDayOfYear);
-/*
 
-Today is 01/12/2023
-Find me all birthdays in the next 60 days
-
-Bobs birthday is 01/01/2024 day 1
-
-seleect * from employees where DATE_OF_BIRTH BETWEEN 01/12 AND 01/03
-
- */
-
+    EmployeeEntity findByEmail(String email);
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.Birthday_processor2;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,9 @@ public class PersonServiceImpl implements PersonService {
 
     private Clock clock = Clock.system(ZoneId.systemDefault());
 
+
+
+
     @Override
     public void SetClock(Clock clock) {
         this.clock = clock;
@@ -43,7 +47,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person savePerson(Person person) {
-        EmployeeEntity entity = new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth());
+        EmployeeEntity entity = new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth(), person.getEmail(), person.getPassword(), person.getUsername());
         employeeRepo.save(entity);
         return convertEmployeeEntityintoEmployee(entity);
     }
@@ -88,7 +92,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void updatePerson(Person person) {
-        EmployeeEntity entity = new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth());
+        EmployeeEntity entity = new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth(), person.getEmail(), person.getPassword(),person.getUsername());
         employeeRepo.save(entity);
 
     }
@@ -112,16 +116,25 @@ public class PersonServiceImpl implements PersonService {
         return totalNumberOfDays;
     }
 
-//    public List<Person> findByDayOfYearRange(Person person, int includeDaysFromNow){
-//        LocalDate fromDate = LocalDate.now(this.clock);
-//        int fromDay = fromDate.getDayOfYear();
-//        int toDay = fromDate.plusDays(includeDaysFromNow).getDayOfYear();
-//        if(person.getDateOfBirth().getMonthValue()>fromDate.getMonthValue()){
-//            if((person.getDateOfBirth().getDayOfYear()<=toDay && person.getDateOfBirth().getDayOfYear()>=fromDay)) //between 350 and 350+60
-//            { return employeeRepo.findByDayOfYearRange(fromDay,toDay);}
-//        }
-////        else
-////            employeeRepo.findAllByMonthDayRange()
-//    }
+    @Override
+    public void register(UserDto user) throws UserAlreadyExistException {
+
+        //Let's check if user already registered with us
+        if(checkIfUserExist(user.getEmail())){
+            throw new UserAlreadyExistException();
+        }
+        EmployeeEntity userEntity = new EmployeeEntity();
+        BeanUtils.copyProperties(user, userEntity);
+        employeeRepo.save(userEntity);
+    }
+
+
+    @Override
+    public boolean checkIfUserExist(String email) {
+        return employeeRepo.findByEmail(email) !=null ? true : false;
+    }
+
+
 }
+
 

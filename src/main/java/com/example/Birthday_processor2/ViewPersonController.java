@@ -1,9 +1,12 @@
 package com.example.Birthday_processor2;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.List;
 import java.util.Optional;
@@ -103,7 +106,7 @@ public class ViewPersonController {
     }
 
     @GetMapping("/showingUpcomingBirthdays")
-    public String getUpcomingBirthdays(Person person,Model model, @RequestParam(value = "daysFromNow", required = false) Integer daysFromNow) {
+    public String getUpcomingBirthdays(Person person, Model model, @RequestParam(value = "daysFromNow", required = false) Integer daysFromNow) {
         List<Person> personList = personService.findWithUpcomingBirthday(
                 Optional.ofNullable(daysFromNow).orElse(30));
         model.addAttribute("people", personList);
@@ -111,5 +114,34 @@ public class ViewPersonController {
         return "/showingUpcomingBirthdays";
     }
 
+    @GetMapping("/registration")
+    public String showRegistrationForm(WebRequest request, Model model) {
+        UserDto userDto = new UserDto();
+        model.addAttribute("person", userDto);
+        return "registration";
+    }
+
+    @PostMapping("/registration")
+    public String userRegistration(final @Valid UserDto userDto, final BindingResult bindingResult, final Model model) throws UserAlreadyExistException {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("registration", userDto);
+            return "registration";
+        }
+        try {
+            personService.register(userDto);
+        } catch (UserAlreadyExistException e) {
+            bindingResult.rejectValue("email", "userDto.email", "An account already exists for this email.");
+            model.addAttribute("registration", userDto);
+            return "registration";
+        }
+        personService.register(userDto);
+        return "redirect:/ui/personList";
+    }
+
+
+
+
+
 }
+
 

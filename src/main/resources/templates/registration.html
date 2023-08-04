@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration page</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<div class="signupFrm">
+    <div class="wrapper">
+        <form th:action="@{/ui/personList}" th:object = "${person}" method="POST" class="form">
+            <h1 class="title">Registration</h1>
+
+            <div class="inputContainer">
+                <input type="text" name="email" th:field="*{email}" class="input" placeholder="email" th:errorClass="is-invalid">
+                <label  class="label">Email</label>
+<!--                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback"></div>-->
+            </div>
+
+            <div class="inputContainer">
+                <input type="text" name="givenName" th:field = "*{givenName}" class="input" placeholder="givenName" th:errorClass="is-invalid">
+                <label  class="label">First Name</label>
+<!--                <div th:if="${#fields.hasErrors('givenName')}" th:errors="*{givenName}" class="invalid-feedback"></div>-->
+            </div>
+
+            <div class="inputContainer">
+                <input type="text" name="familyName" th:field = "*{familyName}" class="input" placeholder="familyName" th:errorClass="is-invalid">
+                <label  class="label">Last Name</label>
+<!--                <div th:if="${#fields.hasErrors('familyName')}" th:errors="*{familyName}" class="invalid-feedback"></div>-->
+            </div>
+
+
+            <div class="inputContainer">
+                <input type="date" name="dateOfBirth" th:field = "*{dateOfBirth}" class="input" placeholder="dateOfBirth" th:errorClass="is-invalid">
+                <label  class="label">Date Of Birth</label>
+<!--                <div th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="invalid-feedback"></div>-->
+            </div>
+
+            <div class="inputContainer">
+                <input type="text" name="userName" th:field= "*{username}" class="input" placeholder="username" th:errorClass="is-invalid">
+                <label  class="label">Username</label>
+<!--                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="invalid-feedback"></div>-->
+            </div>
+
+            <div class="inputContainer">
+                <input type="text" name="password" th:field = "*{password}" class="input" placeholder="password" th:errorClass="is-invalid">
+                <label  class="label">Password</label>
+<!--                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="invalid-feedback"></div>-->
+            </div>
+
+            <div class="inputContainer">
+                <input type="text" name="matchingPassword" class="input" placeholder="matchingPassword" th:errorClass="is-invalid">
+                <div th:if="${#fields.hasErrors('matchingPassword')}" th:errors="*{matchingPassword}" class="invalid-feedback"></div>
+                <label  class="label">Confirm Password</label>
+            </div>
+
+            <input type="submit" class="submitBtn" value="Register">
+        </form>
+    </div>
+</div>
+</body>
+</html>

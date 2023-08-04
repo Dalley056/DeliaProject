@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/login.css}">
+    <title> Em Enterprise Birthday Processor login </title>
+</head>
+<body>
+<body>
+<div class="login-page">
+    <div class="form">
+        <div class="login">
+            <div class="login-header">
+                <h3>Login</h3>
+                <p>Please enter your credentials to login.</p>
+            </div>
+        </div>
+        <form class="login-form" method="POST" th:action="@{/login}">
+            <input type="text" placeholder="username" name="username"/>
+            <input type="password" placeholder="password" name="password"/>
+            <button>login</button>
+            <p class="message">Not registered? <a th:href="@{/ui/registration}">Create an account</a></p>
+        </form>
+    </div>
+</div>
+</body>
+</body>
+</html>
