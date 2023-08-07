@@ -115,16 +115,13 @@ public class ViewPersonController {
     }
 
     @GetMapping("/registration1")
-    public String showRegistrationForm(WebRequest request, Model model) {
-        UserDto userDto = new UserDto();
-        model.addAttribute("person", userDto);
+    public String showRegistrationForm(UserDto userDto, WebRequest request, Model model) {
         return "registration1";
     }
 
     @PostMapping("/registration1")
     public String userRegistration( @Valid UserDto userDto,  BindingResult bindingResult,  Model model) {
         if (bindingResult.hasErrors()) {
-//            model.addAttribute("registration1.html", userDto);
             return "registration1";
         }
 //        try {
@@ -142,5 +139,3 @@ public class ViewPersonController {
 
 
 }
-
-
