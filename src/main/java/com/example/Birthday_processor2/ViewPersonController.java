@@ -114,27 +114,26 @@ public class ViewPersonController {
         return "/showingUpcomingBirthdays";
     }
 
-    @GetMapping("/registration")
+    @GetMapping("/registration1")
     public String showRegistrationForm(WebRequest request, Model model) {
         UserDto userDto = new UserDto();
         model.addAttribute("person", userDto);
-        return "registration";
+        return "registration1";
     }
 
-    @PostMapping("/registration")
-    public String userRegistration(final @Valid UserDto userDto, final BindingResult bindingResult, final Model model) throws UserAlreadyExistException {
+    @PostMapping("/registration1")
+    public String userRegistration( @Valid UserDto userDto,  BindingResult bindingResult,  Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("registration", userDto);
-            return "registration";
+//            model.addAttribute("registration1.html", userDto);
+            return "registration1";
         }
-        try {
-            personService.register(userDto);
-        } catch (UserAlreadyExistException e) {
-            bindingResult.rejectValue("email", "userDto.email", "An account already exists for this email.");
-            model.addAttribute("registration", userDto);
-            return "registration";
-        }
-        personService.register(userDto);
+//        try {
+//            personService.register(userDto);
+//        } catch (UserAlreadyExistException e) {
+//            bindingResult.rejectValue("email", "userDto.email", "An account already exists for this email.");
+//            model.addAttribute("registration1.html", userDto);
+//            return "registration1.html";
+//        }
         return "redirect:/ui/personList";
     }
 

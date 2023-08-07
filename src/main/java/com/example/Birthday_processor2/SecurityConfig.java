@@ -68,7 +68,7 @@ public class SecurityConfig {
                          .dispatcherTypeMatchers(
                                  DispatcherType.FORWARD, DispatcherType.ERROR
                          ).permitAll()
-                         .requestMatchers("/error", "/errors/**").permitAll()
+                         .requestMatchers("/error.css", "/errors/**").permitAll()
                          .requestMatchers("/**").permitAll();
 
 
@@ -78,7 +78,7 @@ public class SecurityConfig {
                               .loginPage("/login").permitAll()
                               .loginProcessingUrl("/login").permitAll()
                               .defaultSuccessUrl("/",true)
-                              .failureUrl("/login?error=true")
+                              .failureUrl("/login?error.css=true")
               ).logout(logout ->
                       logout
                               .logoutUrl("/logout").permitAll()

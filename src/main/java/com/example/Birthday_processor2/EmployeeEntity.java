@@ -23,13 +23,13 @@ public class EmployeeEntity {
     @Column (name = "employee_id")
     private Long employeeId;
 
-    @NotBlank(message = "First name is mandatory")
-    @Column (name= "first_name")
-    private String firstName;
+    @NotBlank(message = "Given Name is mandatory")
+    @Column (name= "given_name")
+    private String givenName;
 
-    @NotBlank(message = "Last name is mandatory")
-    @Column (name= "last_name")
-    private String lastName;
+    @NotBlank(message = "Family Name is mandatory")
+    @Column (name= "family_Name")
+    private String familyName;
 
     @NotNull(message = "Date Of Birth is mandatory")
     @Column (name= "date_of_birth")

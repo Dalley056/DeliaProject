@@ -34,7 +34,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     public Person convertEmployeeEntityintoEmployee(EmployeeEntity entity) {
-        return new Person(entity.getEmployeeId(), entity.getFirstName(), entity.getLastName(), entity.getDateOfBirth());
+        return new Person(entity.getEmployeeId(), entity.getGivenName(), entity.getFamilyName(), entity.getDateOfBirth());
     }
 
     @Override
@@ -117,22 +117,22 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void register(UserDto user) throws UserAlreadyExistException {
+    public void register(UserDto user)  {
 
         //Let's check if user already registered with us
-        if(checkIfUserExist(user.getEmail())){
-            throw new UserAlreadyExistException();
-        }
+//        if(checkIfUserExist(user.getEmail())){
+//            throw new UserAlreadyExistException();
+//        }
         EmployeeEntity userEntity = new EmployeeEntity();
         BeanUtils.copyProperties(user, userEntity);
         employeeRepo.save(userEntity);
     }
 
 
-    @Override
-    public boolean checkIfUserExist(String email) {
-        return employeeRepo.findByEmail(email) !=null ? true : false;
-    }
+//    @Override
+//    public boolean checkIfUserExist(String email) {
+//        return employeeRepo.findByEmail(email) !=null ? true : false;
+//    }
 
 
 }
