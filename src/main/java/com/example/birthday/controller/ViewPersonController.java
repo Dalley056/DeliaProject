@@ -16,8 +16,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/ui")
 public class ViewPersonController {
-
-
     private final PersonService personService;
 
     public ViewPersonController(PersonService personService) {
@@ -58,13 +56,16 @@ public class ViewPersonController {
 
         Optional<Person> existing = personService.getSinglePerson(id);
         existing.ifPresentOrElse(existingPerson -> {
-                    var p = new Person(existingPerson.id(), person.givenName(), person.familyName(), person.dateOfBirth());
-                    personService.updatePerson(p);
+                    existingPerson.setGivenName(person.getGivenName());
+                    existingPerson.setFamilyName(person.getFamilyName());
+                    existingPerson.setDateOfBirth(person.getDateOfBirth());
+                    personService.updatePerson(existingPerson);
                 },
                 () -> {
                     // TODO - add error message to spring model with flash
                     throw new RuntimeException("Data not found for person" + id);
                 });
+
 
         return "redirect:ui/personList";
     }

@@ -31,7 +31,6 @@ public class PersonServiceImpl implements PersonService {
         this.employeeRepo = employeeRepo;
     }
 
-
     @Override
     public void SetClock(Clock clock) {
         this.clock = clock;
@@ -48,15 +47,12 @@ public class PersonServiceImpl implements PersonService {
         return employeeEntities.stream().map(this::convertEmployeeEntityintoEmployee).toList();
     }
 
-
     @Override
     public Person savePerson(Person person) {
-        EmployeeEntity entity = new EmployeeEntity(person.id(), person.givenName(), person.familyName(),
-                person.dateOfBirth(), person.email(), person.password(), person.username());
+        EmployeeEntity entity = new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth(), person.getEmail(), person.getPassword(), person.getUsername());
         employeeRepo.save(entity);
         return convertEmployeeEntityintoEmployee(entity);
     }
-
 
     @Override
     public Optional<Person> getSinglePerson(Long id) {
@@ -97,8 +93,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void updatePerson(Person person) {
-        EmployeeEntity entity = new EmployeeEntity(person.id(), person.givenName(), person.familyName(),
-                person.dateOfBirth(), person.email(), person.password(),person.username());
+        EmployeeEntity entity = new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth(), person.getEmail(), person.getPassword(),person.getUsername());
         employeeRepo.save(entity);
 
     }
@@ -110,8 +105,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public int getNumberOfDaysUntilEmployeeBirthday(Person person) {
-        String dateOfBirth = String.valueOf(person.dateOfBirth());
-        long dateOfBirth2 = Long.parseLong(dateOfBirth); //covert to long
+        String dateOfBirth = String.valueOf(person.getDateOfBirth());
+        Long dateOfBirth2 = Long.valueOf(dateOfBirth); //covert to long
         LocalDate now = LocalDate.now(this.clock);
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendValue(MONTH_OF_YEAR, 2)
