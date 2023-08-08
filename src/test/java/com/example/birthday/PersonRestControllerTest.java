@@ -1,5 +1,8 @@
-package com.example.Birthday_processor2;
+package com.example.birthday;
 
+import com.example.birthday.controller.PersonRestController;
+import com.example.birthday.services.Person;
+import com.example.birthday.services.PersonService;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

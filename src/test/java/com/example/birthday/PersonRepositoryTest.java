@@ -1,5 +1,7 @@
-package com.example.Birthday_processor2;
+package com.example.birthday;
 
+import com.example.birthday.repository.EmployeeEntity;
+import com.example.birthday.repository.EmployeeRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

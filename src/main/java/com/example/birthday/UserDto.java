@@ -1,4 +1,4 @@
-package com.example.Birthday_processor2;
+package com.example.birthday;
 
 
 import jakarta.validation.constraints.Email;
@@ -8,7 +8,6 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 //@PasswordMatches
 public class UserDto implements Serializable {
@@ -25,7 +24,7 @@ public class UserDto implements Serializable {
 
         @NotNull(message = "Please enter your date of birth")
         @DateTimeFormat
-        private LocalDate dateOfBirth;
+        private String dateOfBirth;
 
 //        @ValidEmail
 
@@ -80,11 +79,11 @@ public class UserDto implements Serializable {
                 this.username = username;
         }
 
-        public LocalDate getDateOfBirth() {
+        public String getDateOfBirth() {
                 return dateOfBirth;
         }
 
-        public void setDateOfBirth(LocalDate dateOfBirth) {
+        public void setDateOfBirth(String dateOfBirth) {
                 this.dateOfBirth = dateOfBirth;
         }
 
@@ -92,7 +91,7 @@ public class UserDto implements Serializable {
                 return matchingPassword;
         }
 
-        public void setMatchingPassword(LocalDate dateOfBirth) {
+        public void setMatchingPassword(String dateOfBirth) {
                 this.matchingPassword = matchingPassword;
         }
 }

@@ -1,4 +1,4 @@
-package com.example.Birthday_processor2;
+package com.example.birthday.repository;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -44,4 +44,6 @@ public class EmployeeEntity {
     @NotBlank(message = "Username is mandatory")
     private String username;
 
+    public EmployeeEntity(long l, String delia, String neagu, LocalDate of) {
+    }
 }

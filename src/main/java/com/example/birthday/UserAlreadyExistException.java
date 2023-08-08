@@ -1,4 +1,4 @@
-package com.example.Birthday_processor2;
+package com.example.birthday;
 
 public class UserAlreadyExistException extends Exception {
 }

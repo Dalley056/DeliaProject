@@ -1,4 +1,4 @@
-package com.example.Birthday_processor2;
+package com.example.birthday;
 
 import org.junit.jupiter.api.Test;
 

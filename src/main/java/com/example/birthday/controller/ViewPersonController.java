@@ -1,7 +1,9 @@
-package com.example.Birthday_processor2;
+package com.example.birthday.controller;
 
+import com.example.birthday.UserDto;
+import com.example.birthday.services.Person;
+import com.example.birthday.services.PersonService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,8 +17,12 @@ import java.util.Optional;
 @RequestMapping("/ui")
 public class ViewPersonController {
 
-    @Autowired
-    private PersonService personService;
+
+    private final PersonService personService;
+
+    public ViewPersonController(PersonService personService) {
+        this.personService = personService;
+    }
 
     @GetMapping("/personList")
     public String getPersons(Model model) {

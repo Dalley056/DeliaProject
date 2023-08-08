@@ -1,5 +1,9 @@
-package com.example.Birthday_processor2;
+package com.example.birthday;
 
+import com.example.birthday.repository.EmployeeEntity;
+import com.example.birthday.repository.EmployeeRepository;
+import com.example.birthday.services.Person;
+import com.example.birthday.services.PersonServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,7 +1,9 @@
-package com.example.Birthday_processor2;
+package com.example.birthday.services;
 
+import com.example.birthday.UserDto;
+import com.example.birthday.repository.EmployeeEntity;
+import com.example.birthday.repository.EmployeeRepository;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Clock;
@@ -20,12 +22,14 @@ import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
 
 @Service
 public class PersonServiceImpl implements PersonService {
-    @Autowired
-    private EmployeeRepository employeeRepo;
+
+    private final EmployeeRepository employeeRepo;
 
     private Clock clock = Clock.system(ZoneId.systemDefault());
 
-
+    public PersonServiceImpl(EmployeeRepository employeeRepo) {
+        this.employeeRepo = employeeRepo;
+    }
 
 
     @Override

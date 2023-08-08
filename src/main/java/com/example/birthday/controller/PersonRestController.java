@@ -1,6 +1,7 @@
-package com.example.Birthday_processor2;
+package com.example.birthday.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.birthday.services.Person;
+import com.example.birthday.services.PersonService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,8 +11,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class PersonRestController {
-    @Autowired
-    private PersonService personService;
+
+    private final PersonService personService;
+
+    public PersonRestController(PersonService personService) {
+        this.personService = personService;
+    }
 
     @GetMapping("/people")
      public List<Person> getEmployees(){

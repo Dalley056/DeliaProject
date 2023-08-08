@@ -1,4 +1,4 @@
-package com.example.Birthday_processor2;
+package com.example.birthday;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
