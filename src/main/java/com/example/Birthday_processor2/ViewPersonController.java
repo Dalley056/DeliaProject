@@ -116,11 +116,12 @@ public class ViewPersonController {
 
     @GetMapping("/registration1")
     public String showRegistrationForm(UserDto userDto, WebRequest request, Model model) {
+        model.addAttribute("userDto", userDto);
         return "registration1";
     }
 
     @PostMapping("/registration1")
-    public String userRegistration( @Valid UserDto userDto,  BindingResult bindingResult,  Model model) {
+    public String userRegistration(@Valid UserDto userDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "registration1";
         }
@@ -133,9 +134,6 @@ public class ViewPersonController {
 //        }
         return "redirect:/ui/personList";
     }
-
-
-
 
 
 }

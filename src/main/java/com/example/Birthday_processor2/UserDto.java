@@ -7,10 +7,11 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 //@PasswordMatches
-public class UserDto {
+public class UserDto implements Serializable {
 
 
         @NotBlank(message = "Please enter your first name")
@@ -95,5 +96,3 @@ public class UserDto {
                 this.matchingPassword = matchingPassword;
         }
 }
-
-
