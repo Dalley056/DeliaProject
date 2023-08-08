@@ -58,16 +58,13 @@ public class ViewPersonController {
 
         Optional<Person> existing = personService.getSinglePerson(id);
         existing.ifPresentOrElse(existingPerson -> {
-                    existingPerson.setGivenName(person.getGivenName());
-                    existingPerson.setFamilyName(person.getFamilyName());
-                    existingPerson.setDateOfBirth(person.getDateOfBirth());
-                    personService.updatePerson(existingPerson);
+                    var p = new Person(existingPerson.id(), person.givenName(), person.familyName(), person.dateOfBirth());
+                    personService.updatePerson(p);
                 },
                 () -> {
                     // TODO - add error message to spring model with flash
                     throw new RuntimeException("Data not found for person" + id);
                 });
-
 
         return "redirect:ui/personList";
     }

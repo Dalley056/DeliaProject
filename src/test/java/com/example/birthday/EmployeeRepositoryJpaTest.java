@@ -21,7 +21,7 @@ class EmployeeRepositoryJpaTest {
     @Test
     void test() {
 
-        EmployeeEntity employee = new EmployeeEntity(null, "Martin", "Smith", LocalDate.of(1975, 12, 14));
+        EmployeeEntity employee = new EmployeeEntity(0L, "Martin", "Smith", LocalDate.of(1975, 12, 14));
 
         testEntityManager.persist(employee);
 

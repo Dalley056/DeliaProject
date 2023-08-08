@@ -51,7 +51,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person savePerson(Person person) {
-        EmployeeEntity entity = new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth(), person.getEmail(), person.getPassword(), person.getUsername());
+        EmployeeEntity entity = new EmployeeEntity(person.id(), person.givenName(), person.familyName(),
+                person.dateOfBirth(), person.email(), person.password(), person.username());
         employeeRepo.save(entity);
         return convertEmployeeEntityintoEmployee(entity);
     }
@@ -96,7 +97,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void updatePerson(Person person) {
-        EmployeeEntity entity = new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth(), person.getEmail(), person.getPassword(),person.getUsername());
+        EmployeeEntity entity = new EmployeeEntity(person.id(), person.givenName(), person.familyName(),
+                person.dateOfBirth(), person.email(), person.password(),person.username());
         employeeRepo.save(entity);
 
     }
@@ -108,16 +110,15 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public int getNumberOfDaysUntilEmployeeBirthday(Person person) {
-        String dateOfBirth = String.valueOf(person.getDateOfBirth());
-        Long dateOfBirth2 = Long.valueOf(dateOfBirth); //covert to long
+        String dateOfBirth = String.valueOf(person.dateOfBirth());
+        long dateOfBirth2 = Long.parseLong(dateOfBirth); //covert to long
         LocalDate now = LocalDate.now(this.clock);
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendValue(MONTH_OF_YEAR, 2)
                 .appendValue(DAY_OF_MONTH, 2)
                 .toFormatter();
-        int totalNumberOfDays = Integer.parseInt(String.valueOf(now.minusDays(dateOfBirth2).format(formatter)));
 
-        return totalNumberOfDays;
+        return Integer.parseInt(String.valueOf(now.minusDays(dateOfBirth2).format(formatter)));
     }
 
     @Override
@@ -140,5 +141,3 @@ public class PersonServiceImpl implements PersonService {
 
 
 }
-
-

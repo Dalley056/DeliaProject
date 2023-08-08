@@ -1,6 +1,5 @@
 package com.example.birthday.services;
 
-import com.example.birthday.Person;
 import com.example.birthday.UserDto;
 
 import java.time.Clock;
