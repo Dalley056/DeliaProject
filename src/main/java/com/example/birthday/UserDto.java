@@ -36,7 +36,7 @@ public class UserDto implements Serializable {
         @NotBlank(message = "Please enter your password")
         @Length(min=8, message = "Passwords must be at least 8 characters long")
         private String password;
-        @NotBlank(message = "Please enter your re-enter your password")
+
         private String matchingPassword;
 
         public String getgivenName() {
