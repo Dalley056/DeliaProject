@@ -2,6 +2,7 @@ package com.example.birthday;
 
 
 import com.example.birthday.validation.email.ValidEmail;
+import com.example.birthday.validation.password.ValidPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,9 +33,8 @@ public class UserDto implements Serializable {
         @Email(message = "Enter a valid email address")
         private String email;
 
-//        @ValidPassword
+        @ValidPassword
         @NotBlank(message = "Please enter your password")
-//        @ValidPassword
         private String password;
 
         @NotBlank(message = "Please re-enter your password")
