@@ -3,6 +3,7 @@ package com.example.birthday.services;
 import com.example.birthday.UserDto;
 import com.example.birthday.repository.EmployeeEntity;
 import com.example.birthday.repository.EmployeeRepository;
+import jakarta.validation.constraints.Email;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -133,6 +134,11 @@ public class PersonServiceImpl implements PersonService {
         LocalDate date = LocalDate.parse(user.getDateOfBirth(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         userEntity.setDateOfBirth(date);
         employeeRepo.save(userEntity);
+    }
+
+    @Override
+    public boolean userWithEmailExists(Email email) {
+        return false;
     }
 
 

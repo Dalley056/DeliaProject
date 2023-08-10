@@ -48,4 +48,38 @@ public record Person(
         return generation;
     }
 
+    @Override
+    public Long id() {
+        return id;
+    }
+
+    @Override
+    public String givenName() {
+        return givenName;
+    }
+
+    @Override
+    public String familyName() {
+        return familyName;
+    }
+
+    @Override
+    public LocalDate dateOfBirth() {
+        return dateOfBirth;
+    }
+
+    @Override
+    public String email() {
+        return email;
+    }
+
+    @Override
+    public String password() {
+        return password;
+    }
+
+    @Override
+    public String username() {
+        return username;
+    }
 }

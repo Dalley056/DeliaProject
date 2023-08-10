@@ -1,10 +1,10 @@
 package com.example.birthday;
 
 
+import com.example.birthday.validation.email.ValidEmail;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -26,7 +26,7 @@ public class UserDto implements Serializable {
         @DateTimeFormat
         private String dateOfBirth;
 
-//        @ValidEmail
+        @ValidEmail
 
         @NotBlank(message = "Please enter your email")
         @Email(message = "Enter a valid email address")
@@ -34,9 +34,10 @@ public class UserDto implements Serializable {
 
 //        @ValidPassword
         @NotBlank(message = "Please enter your password")
-        @Length(min=8, message = "Passwords must be at least 8 characters long")
+//        @ValidPassword
         private String password;
 
+        @NotBlank(message = "Please re-enter your password")
         private String matchingPassword;
 
         public String getgivenName() {

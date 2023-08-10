@@ -15,6 +15,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+//import java.util.UUID;
+
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 @EnableWebSecurity(
@@ -99,5 +101,24 @@ public class SecurityConfig {
          return "logout";
       }
    }
+
+
+//   @Bean
+//   public ITemplateResolver svgTemplateResolver() {
+//      SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+//      resolver.setPrefix("classpath:/templates/svg/");
+//      resolver.setSuffix(".svg");
+//      resolver.setTemplateMode("XML");
+//
+//      return resolver;
+//   }
+//
+//
+//   @Bean
+//   public LocalValidatorFactoryBean localValidatorFactoryBean(MessageSource messageSource) { //<.>
+//      LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+//      bean.setValidationMessageSource(messageSource); //<.>
+//      return bean;
+//   }
 }
 

@@ -88,6 +88,21 @@
 			<artifactId>spring-security-crypto</artifactId>
 			<version>5.7.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.passay</groupId>
+			<artifactId>passay</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.wimdeblauwe</groupId>
+			<artifactId>jpearl-core</artifactId>
+			<version>${jpearl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>32.1.2-jre</version>
+		</dependency>
 	</dependencies>
 
 	<build>
