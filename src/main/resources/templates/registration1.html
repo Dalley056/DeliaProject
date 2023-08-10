@@ -51,14 +51,14 @@
 
             <tr>
                 <td>Password:</td>
-                <td><input type="text" th:field="*{password}"/></td>
+                <td><input type="password" th:field="*{password}"/></td>
                 <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></td>
             </tr>
 
 
             <tr>
                 <td>Confirm password:</td>
-                <td><input type="text" th:field="*{matchingPassword}"/></td>
+                <td><input type="password" th:field="*{matchingPassword}"/></td>
                 <td th:if="${#fields.hasErrors('matchingPassword')}" th:errors="*{matchingPassword}"></td>
             </tr>
 

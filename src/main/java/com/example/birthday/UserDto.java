@@ -2,6 +2,7 @@ package com.example.birthday;
 
 
 import com.example.birthday.validation.email.ValidEmail;
+import com.example.birthday.validation.matchingPassword.PasswordValueMatch;
 import com.example.birthday.validation.password.ValidPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,7 +11,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 
-//@PasswordMatches
+@PasswordValueMatch.List({
+        @PasswordValueMatch(
+                field = "password",
+                fieldMatch = "matchingPassword",
+                message = "Passwords do not match!"
+        )
+})
 public class UserDto implements Serializable {
 
 
@@ -36,8 +43,6 @@ public class UserDto implements Serializable {
         @ValidPassword
         @NotBlank(message = "Please enter your password")
         private String password;
-
-        @NotBlank(message = "Please re-enter your password")
         private String matchingPassword;
 
         public String getgivenName() {
@@ -92,7 +97,7 @@ public class UserDto implements Serializable {
                 return matchingPassword;
         }
 
-        public void setMatchingPassword(String dateOfBirth) {
+        public void setMatchingPassword(String matchingPassword) {
                 this.matchingPassword = matchingPassword;
         }
 }
