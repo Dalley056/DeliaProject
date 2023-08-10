@@ -130,6 +130,8 @@ public class PersonServiceImpl implements PersonService {
 //        }
         EmployeeEntity userEntity = new EmployeeEntity();
         BeanUtils.copyProperties(user, userEntity);
+        LocalDate date = LocalDate.parse(user.getDateOfBirth(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        userEntity.setDateOfBirth(date);
         employeeRepo.save(userEntity);
     }
 

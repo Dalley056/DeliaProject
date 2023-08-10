@@ -135,6 +135,7 @@ public class ViewPersonController {
 //            model.addAttribute("registration1.html", userDto);
 //            return "registration1.html";
 //        }
+        personService.register(userDto);
         return "redirect:/ui/personList";
     }
 
