@@ -1,9 +1,11 @@
 package com.example.birthday.controller;
 
 import com.example.birthday.UserDto;
+import com.example.birthday.repository.EmployeeRepository;
 import com.example.birthday.services.Person;
 import com.example.birthday.services.PersonService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +19,8 @@ import java.util.Optional;
 @RequestMapping("/ui")
 public class ViewPersonController {
 
-
+     @Autowired
+    EmployeeRepository employeeRepo;
     private final PersonService personService;
 
     public ViewPersonController(PersonService personService) {
@@ -128,13 +131,10 @@ public class ViewPersonController {
         if (bindingResult.hasErrors()) {
             return "registration1";
         }
-//        try {
-//            personService.register(userDto);
-//        } catch (UserAlreadyExistException e) {
-//            bindingResult.rejectValue("email", "userDto.email", "An account already exists for this email.");
-//            model.addAttribute("registration1.html", userDto);
-//            return "registration1.html";
-//        }
+        if(employeeRepo.findByEmail(userDto.getEmail())!=null)
+        {bindingResult.rejectValue("email", "userDto.email", "An account already exists for this email.");
+            model.addAttribute("registration1.html", userDto);
+            return "registration1.html";}
         personService.register(userDto);
         return "redirect:/ui/personList";
     }
