@@ -48,6 +48,11 @@ public record Person(
         return generation;
     }
 
+    public long getAge() {
+        return ChronoUnit.YEARS.between(this.dateOfBirth(), LocalDate.now());
+    }
+
+
     @Override
     public Long id() {
         return id;
