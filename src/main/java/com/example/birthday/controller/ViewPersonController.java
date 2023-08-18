@@ -61,7 +61,7 @@ public class ViewPersonController {
 
         Optional<Person> existing = personService.getSinglePerson(id);
         existing.ifPresentOrElse(existingPerson -> {
-                    var p = new Person(existingPerson.id(), person.givenName(), person.familyName(), person.dateOfBirth());
+                    var p = new Person(existingPerson.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth(), person.getEmail(),person.getPassword(),person.getUsername());
                     personService.updatePerson(p);
                 },
                 () -> {

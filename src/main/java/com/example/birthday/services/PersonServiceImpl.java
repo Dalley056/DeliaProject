@@ -39,7 +39,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     public Person convertEmployeeEntityintoEmployee(EmployeeEntity entity) {
-        return new Person(entity.getEmployeeId(), entity.getGivenName(), entity.getFamilyName(), entity.getDateOfBirth());
+        return new Person(entity.getEmployeeId(), entity.getGivenName(), entity.getFamilyName(), entity.getDateOfBirth(), entity.getEmail(),entity.getPassword(),entity.getUsername());
     }
 
     @Override
@@ -52,8 +52,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person savePerson(Person person) {
-        EmployeeEntity entity = new EmployeeEntity(person.id(), person.givenName(), person.familyName(),
-                person.dateOfBirth(), person.email(), person.password(), person.username());
+        EmployeeEntity entity = new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(),
+                person.getDateOfBirth(), person.getEmail(), person.getPassword(), person.getUsername());
         employeeRepo.save(entity);
         return convertEmployeeEntityintoEmployee(entity);
     }
@@ -71,8 +71,8 @@ public class PersonServiceImpl implements PersonService {
         LocalDate from = LocalDate.now(this.clock);
         LocalDate to = from.plusDays(includeDaysFromNow);
 
-        int fromDayOfYear = from.getDayOfYear();
-        int toDayOfYear = to.getDayOfYear();
+        int fromDayOfYear = from.getDayOfYear(); //8/11
+        int toDayOfYear = to.getDayOfYear();     //2/01
 
         if  (rangeSpansTwoYears(fromDayOfYear, toDayOfYear, to)) {
             int fromYearLastDay = LocalDate.of(from.getYear(), DECEMBER, 31).getDayOfYear();
@@ -98,8 +98,8 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void updatePerson(Person person) {
-        EmployeeEntity entity = new EmployeeEntity(person.id(), person.givenName(), person.familyName(),
-                person.dateOfBirth(), person.email(), person.password(),person.username());
+        EmployeeEntity entity = new EmployeeEntity(person.getId(), person.getGivenName(), person.getFamilyName(),
+                person.getDateOfBirth(), person.getEmail(), person.getPassword(),person.getUsername());
         employeeRepo.save(entity);
 
     }
@@ -111,15 +111,21 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public int getNumberOfDaysUntilEmployeeBirthday(Person person) {
-        String dateOfBirth = String.valueOf(person.dateOfBirth());
+        String dateOfBirth = String.valueOf(person.getDateOfBirth());
         long dateOfBirth2 = Long.parseLong(dateOfBirth); //covert to long
         LocalDate now = LocalDate.now(this.clock);
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendValue(MONTH_OF_YEAR, 2)
                 .appendValue(DAY_OF_MONTH, 2)
                 .toFormatter();
-
+        int daysUntilBirthday=0;
+        int fromYearLastDay = LocalDate.of(now.getYear(), DECEMBER, 31).getDayOfYear();
+        if(person.getDateOfBirth().getDayOfYear()<now.getDayOfYear())
+        {daysUntilBirthday=person.getDateOfBirth().getDayOfYear()+(fromYearLastDay-now.getDayOfYear());
+        return daysUntilBirthday;}
+        else{
         return Integer.parseInt(String.valueOf(now.minusDays(dateOfBirth2).format(formatter)));
+        }
     }
 
     @Override

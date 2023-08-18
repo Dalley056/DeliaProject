@@ -1,6 +1,5 @@
 package com.example.birthday;
 
-
 import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +14,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//import java.util.UUID;
-
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
 @EnableWebSecurity(
@@ -24,13 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 )
 public class SecurityConfig {
    private final PasswordEncoder passwordEncoder;
-   public SecurityConfig(PasswordEncoder passwordEncoder){
-      this.passwordEncoder=passwordEncoder;
+
+   public SecurityConfig(PasswordEncoder passwordEncoder) {
+      this.passwordEncoder = passwordEncoder;
    }
 
    @Bean
    public InMemoryUserDetailsManager userDetailsService() {
-      UserDetails user= User.builder()
+      UserDetails user = User.builder()
               .username("user")
               .password(passwordEncoder
                       .encode("verysecure"))
@@ -62,7 +60,7 @@ public class SecurityConfig {
 //   }
 
    @Bean
-   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
       http
               .securityMatcher("/**")
               .authorizeHttpRequests(auth -> {
@@ -70,7 +68,7 @@ public class SecurityConfig {
                          .dispatcherTypeMatchers(
                                  DispatcherType.FORWARD, DispatcherType.ERROR
                          ).permitAll()
-                         .requestMatchers("/error.css", "/errors/**").permitAll()
+                         .requestMatchers("/error", "/errors/**").permitAll()
                          .requestMatchers("/**").permitAll();
 
 
@@ -79,8 +77,8 @@ public class SecurityConfig {
                       formLogin
                               .loginPage("/login").permitAll()
                               .loginProcessingUrl("/login").permitAll()
-                              .defaultSuccessUrl("/",true)
-                              .failureUrl("/login?error.css=true")
+                              .defaultSuccessUrl("/", true)
+                              .failureUrl("/login?error=true")
               ).logout(logout ->
                       logout
                               .logoutUrl("/logout").permitAll()
@@ -96,29 +94,10 @@ public class SecurityConfig {
       String login() {
          return "login";
       }
+
       @RequestMapping("/logout")
       String logout() {
          return "logout";
       }
    }
-
-
-//   @Bean
-//   public ITemplateResolver svgTemplateResolver() {
-//      SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-//      resolver.setPrefix("classpath:/templates/svg/");
-//      resolver.setSuffix(".svg");
-//      resolver.setTemplateMode("XML");
-//
-//      return resolver;
-//   }
-//
-//
-//   @Bean
-//   public LocalValidatorFactoryBean localValidatorFactoryBean(MessageSource messageSource) { //<.>
-//      LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-//      bean.setValidationMessageSource(messageSource); //<.>
-//      return bean;
-//   }
 }
-

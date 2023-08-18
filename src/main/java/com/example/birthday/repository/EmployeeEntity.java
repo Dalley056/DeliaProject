@@ -35,8 +35,16 @@ public class EmployeeEntity {
     @Column (name= "date_of_birth")
     private LocalDate dateOfBirth;
 
+    public String getEmail() {
+        return email;
+    }
+
     @NotBlank(message = "Email is mandatory")
     private String email;
+
+    public String getPassword() {
+        return password;
+    }
 
     @NotBlank(message = "Password is mandatory")
     private String password;
@@ -46,4 +54,7 @@ public class EmployeeEntity {
 
     public EmployeeEntity(long l, String delia, String neagu, LocalDate of) {
     }
+
+
+
 }

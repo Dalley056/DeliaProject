@@ -33,6 +33,7 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> 
             nativeQuery= true)
     List<EmployeeEntity> findWithDayOfYear(int fromDayOfYear, int toDayOfYear);
 
+//    @Query("SELECT u FROM EMPLOYEES u WHERE u.email = ?1")
     EmployeeEntity findByEmail(String email);
 
 

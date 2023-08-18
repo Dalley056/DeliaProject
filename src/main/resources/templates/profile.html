@@ -53,6 +53,15 @@ dd {
     <dt>Person date of birth</dt>
     <dd th:text= "${#temporals.format(person.dateOfBirth, 'dd-MM-yyyy')}"></dd>
 
+    <dt>Person email</dt>
+    <dd th:text= "${person.email}"></dd>
+
+    <dt>Person username</dt>
+    <dd th:text= "${person.username}"></dd>
+
+    <dt>Person password</dt>
+    <dd th:text= "${person.password}"></dd>
+
 </dl>
 
 </body>
