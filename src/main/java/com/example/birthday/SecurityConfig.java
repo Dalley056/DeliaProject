@@ -6,10 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,44 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
         debug = true
 )
 public class SecurityConfig {
-   private final PasswordEncoder passwordEncoder;
-
-   public SecurityConfig(PasswordEncoder passwordEncoder) {
-      this.passwordEncoder = passwordEncoder;
-   }
 
    @Bean
-   public InMemoryUserDetailsManager userDetailsService() {
-      UserDetails user = User.builder()
-              .username("user")
-              .password(passwordEncoder
-                      .encode("verysecure"))
-              .roles("USER").build();
-//      UserDetails admin= User.builder()
-//              .username("admin")
-//              .password(passwordEncoder.encode("evenmoresecure")
-////                      .roles("USER", "ADMIN")
-//                      .build());
-      return new InMemoryUserDetailsManager(user);
+   public PasswordEncoder passwordEncoder() {
+      return PasswordEncoderFactories.createDelegatingPasswordEncoder();
    }
 
-//   @Bean
-//   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//      http.authorizeHttpRequests(authz -> authz.requestMatchers
-//              ("users/create").hasRole("ADMIN")
-//                      .requestMatchers
-//                              ("/users/*/delete").hasRole("ADMIN")
-//                      .requestMatchers
-//                              (HttpMethod.GET, "/users/*").hasRole("USER")
-//                                      .requestMatchers
-//                                              (HttpMethod.POST, "/users/*").hasRole("ADMIN")
-//                                      .anyRequest()
-//                                      .authentificated())
-//                      .formLogin().permitAll()
-//                      .and()
-//                      .logout().permitAll();
-//      return http.build();
-//   }
 
    @Bean
    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

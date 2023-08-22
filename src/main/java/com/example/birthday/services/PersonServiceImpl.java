@@ -1,10 +1,8 @@
 package com.example.birthday.services;
 
-import com.example.birthday.UserDto;
 import com.example.birthday.repository.EmployeeEntity;
 import com.example.birthday.repository.EmployeeRepository;
 import jakarta.validation.constraints.Email;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.Clock;
@@ -126,20 +124,6 @@ public class PersonServiceImpl implements PersonService {
         else{
         return Integer.parseInt(String.valueOf(now.minusDays(dateOfBirth2).format(formatter)));
         }
-    }
-
-    @Override
-    public void register(UserDto user)  {
-
-        //Let's check if user already registered with us
-//        if(checkIfUserExist(user.getEmail())){
-//            throw new UserAlreadyExistException();
-//        }
-        EmployeeEntity userEntity = new EmployeeEntity();
-        BeanUtils.copyProperties(user, userEntity);
-        LocalDate date = LocalDate.parse(user.getDateOfBirth(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        userEntity.setDateOfBirth(date);
-        employeeRepo.save(userEntity);
     }
 
     @Override

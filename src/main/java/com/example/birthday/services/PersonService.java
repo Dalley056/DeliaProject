@@ -1,6 +1,5 @@
 package com.example.birthday.services;
 
-import com.example.birthday.UserDto;
 import jakarta.validation.constraints.Email;
 
 import java.time.Clock;
@@ -24,8 +23,6 @@ public interface PersonService {
     void updatePerson(Person existingPerson);
 
     int getNumberOfDaysUntilEmployeeBirthday(Person person);
-
-    void register(final UserDto user) ;
 
     boolean userWithEmailExists(Email email);
 

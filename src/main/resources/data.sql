@@ -1,4 +1,4 @@
-INSERT INTO employees(given_name, family_name, date_of_birth) VALUES ('Williams', 'Parker', '2001-09-20');
-INSERT INTO employees(given_name, family_name, date_of_birth) VALUES ('Marry', 'Sky', '1980-09-30');
-INSERT INTO employees(given_name, family_name, date_of_birth) VALUES ('Harry', 'Robinson', '1984-09-01');
-INSERT INTO employees(given_name, family_name, date_of_birth) VALUES ('Claire', 'Anderson', '1995-09-15');
+INSERT INTO employees(given_name, family_name, date_of_birth, email, username, password) VALUES ('Williams', 'Parker', '2001-09-20','williams@gmail.com','will123','$Will2409');
+INSERT INTO employees(given_name, family_name, date_of_birth, email, username, password) VALUES ('Marry', 'Sky', '1980-09-30','marry@gmail.com','marry123','$Marry2409');
+INSERT INTO employees(given_name, family_name, date_of_birth, email, username, password) VALUES ('Harry', 'Robinson', '1984-09-01','harry@gmail.com','harry123','$Harry2409');
+INSERT INTO employees(given_name, family_name, date_of_birth, email, username, password) VALUES ('Claire', 'Anderson', '1995-09-15','clairre@gmail.com','claire123','$Claire2409');
