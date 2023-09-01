@@ -8,7 +8,7 @@ import lombok.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name ="employees")
+@Table(name = "employees")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -20,19 +20,19 @@ import java.time.LocalDate;
 public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "employee_id")
+    @Column(name = "employee_id")
     private Long employeeId;
 
     @NotBlank(message = "Given Name is mandatory")
-    @Column (name= "given_name")
+    @Column(name = "given_name")
     private String givenName;
 
     @NotBlank(message = "Family Name is mandatory")
-    @Column (name= "family_Name")
+    @Column(name = "family_Name")
     private String familyName;
 
     @NotNull(message = "Date Of Birth is mandatory")
-    @Column (name= "date_of_birth")
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
     public String getEmail() {
@@ -54,7 +54,6 @@ public class EmployeeEntity {
 
     public EmployeeEntity(long l, String delia, String neagu, LocalDate of) {
     }
-
 
 
 }

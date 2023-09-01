@@ -10,6 +10,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Configuration
@@ -61,9 +62,29 @@ public class SecurityConfig {
          return "login";
       }
 
-      @RequestMapping("/logout")
-      String logout() {
-         return "logout";
+      @GetMapping("/logout")
+       public String logout() {
+          return "logout";
       }
-   }
-}
+
+   }}
+
+//   @Bean
+//   public InMemoryUserDetailsManager userDetailsService(){
+//      UserDetails user = User.builder()
+//              .username("user")
+//              .password(passwordEncoder().encode("verysecure"))
+//              .roles("USER")
+//              .build();
+//      UserDetails admin = User.builder()
+//              .username("admin")
+//              .password(passwordEncoder().encode("evenmoresecure"))
+//              .roles("ADMIN")
+//              .build();
+//      return new InMemoryUserDetailsManager(user,admin);
+//   }
+//@Bean
+//public ActiveUserStore activeUserStore(){
+//   return new ActiveUserStore();
+//}
+//}

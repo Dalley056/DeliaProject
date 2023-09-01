@@ -7,6 +7,7 @@ import com.example.birthday.services.PersonService;
 import com.example.birthday.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,10 +21,13 @@ import java.util.Optional;
 @RequestMapping("/ui")
 public class ViewPersonController {
 
-     @Autowired
+    @Autowired
     EmployeeRepository employeeRepo;
     private final PersonService personService;
     private final UserService userService;
+
+//    @Autowired
+//    ActiveUserStore activeUserStore;
 
     public ViewPersonController(PersonService personService, UserService userService) {
         this.personService = personService;
@@ -39,6 +43,7 @@ public class ViewPersonController {
 
     //Create a new Person
     @GetMapping("/insertPerson")
+    @Secured("ROLE_ADMIN")
     public String createPersonForm(Model model) {
         Person person = new Person();
         model.addAttribute("person", person);
@@ -64,7 +69,7 @@ public class ViewPersonController {
 
         Optional<Person> existing = personService.getSinglePerson(id);
         existing.ifPresentOrElse(existingPerson -> {
-                    var p = new Person(existingPerson.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth(), person.getEmail(),person.getPassword(),person.getUsername());
+                    var p = new Person(existingPerson.getId(), person.getGivenName(), person.getFamilyName(), person.getDateOfBirth(), person.getEmail(), person.getPassword(), person.getUsername());
                     personService.updatePerson(p);
                 },
                 () -> {
@@ -76,6 +81,7 @@ public class ViewPersonController {
     }
 
     @GetMapping("/editPerson/{id}")
+    @Secured("ROLE_ADMIN")
     public String editPerson(@PathVariable Long id, @ModelAttribute("person") Person person,
                              Model model) {
         Optional<Person> existing = personService.getSinglePerson(id);
@@ -123,24 +129,38 @@ public class ViewPersonController {
         return "/showingUpcomingBirthdays";
     }
 
-    @GetMapping("/registration1")
+    @GetMapping("/registration")
     public String showRegistrationForm(UserDto userDto, WebRequest request, Model model) {
         model.addAttribute("userDto", userDto);
-        return "registration1";
+        return "registration";
     }
 
-    @PostMapping("/registration1")
+    @PostMapping("/registration")
     public String userRegistration(@Valid UserDto userDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "registration1";
+            return "registration";
         }
-        if(userService.findUser(userDto.getEmail()).isPresent())
-        {bindingResult.rejectValue("email", "userDto.email", "An account already exists for this email.");
-            model.addAttribute("registration1.html", userDto);
-            return "registration1.html";}
+        if (userService.findUser(userDto.getEmail()).isPresent()) {
+            bindingResult.rejectValue("email", "userDto.email", "An account already exists for this email.");
+            model.addAttribute("registration.html", userDto);
+            return "registration.html";
+        }
         userService.register(userDto);
         return "redirect:/ui/personList";
     }
+
+//    @Controller
+//    public class UserController {
+//
+//        @Autowired
+//        ActiveUserStore activeUserStore;
+//
+//        @GetMapping("/loggedUsers")
+//        public String getLoggedUsers(Locale locale, Model model) {
+//            model.addAttribute("users", activeUserStore.getUsers());
+//            return "users";
+//        }
+//    }
 
 
 }

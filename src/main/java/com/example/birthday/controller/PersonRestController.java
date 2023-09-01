@@ -19,19 +19,19 @@ public class PersonRestController {
     }
 
     @GetMapping("/people")
-     public List<Person> getEmployees(){
-         return personService.getPeople();
-        }
+    public List<Person> getEmployees() {
+        return personService.getPeople();
+    }
 
     @PostMapping("/people")
-    public Person saveEmployee (@RequestBody Person person){
+    public Person saveEmployee(@RequestBody Person person) {
 
         return personService.savePerson(person);
 
     }
 
     @GetMapping("/employees/{id}")
-    public Optional<Person> getEmployee (@PathVariable Long id) {
+    public Optional<Person> getEmployee(@PathVariable Long id) {
         return personService.getSinglePerson(id);
     }
 

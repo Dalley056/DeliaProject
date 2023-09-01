@@ -9,8 +9,7 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
 
     @Query(value = "SELECT * FROM EMPLOYEES WHERE FORMATDATETIME(DATE_OF_BIRTH,'MMdd') BETWEEN :from AND :to",
-            nativeQuery= true)
-
+            nativeQuery = true)
     List<EmployeeEntity> findAllByMonthDayRange(@Param("from") String from, @Param("to") String to);
 
 //    @Query(value = "SELECT * FROM EMPLOYEES WHERE DAY_OF_YEAR(DATE_OF_BIRTH) BETWEEN :from AND :to",
@@ -23,17 +22,17 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> 
             OR
             (DAY_OF_YEAR(DATE_OF_BIRTH) BETWEEN :toYearFirstDay AND :toDayOfYear)
             """,
-            nativeQuery= true)
+            nativeQuery = true)
     List<EmployeeEntity> findWithDayOfYearAcrossTwoYears(int fromDayOfYear, int fromYearLastDay, int toYearFirstDay, int toDayOfYear);
 
     @Query(value = """
             SELECT * FROM EMPLOYEES 
             WHERE (DAY_OF_YEAR(DATE_OF_BIRTH) BETWEEN :fromDayOfYear AND :toDayOfYear)
             """,
-            nativeQuery= true)
+            nativeQuery = true)
     List<EmployeeEntity> findWithDayOfYear(int fromDayOfYear, int toDayOfYear);
 
-//    @Query("SELECT u FROM EMPLOYEES u WHERE u.email = ?1")
+    //    @Query("SELECT u FROM EMPLOYEES u WHERE u.email = ?1")
     EmployeeEntity findByEmail(String email);
 
 
